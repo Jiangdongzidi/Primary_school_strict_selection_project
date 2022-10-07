@@ -1,32 +1,35 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
+    <!-- <router-link to="/home">home</router-link> -->
+    <Header></Header>
     <router-view/>
+    <Footer></Footer>
   </div>
 </template>
+<script>
+import Header from './components/Header.vue'
+import Footer from './components/Footer.vue'
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+export default {
+  components: {
+    Header,
+    Footer
+  }
 }
+</script>
 
-nav {
-  padding: 30px;
-}
+<style lang="scss">
+  html{
+    // font-size: 10px;
+    font-size: 14px;
+    font-family: SourceHanSansSC-Light;
+  }
+  p{
+    // 根元素的1.2倍，相当于12px
+    // font-size: 1.2rem;
+  }
+  a{
+    text-decoration: none;
+  }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
