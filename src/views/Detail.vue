@@ -51,6 +51,26 @@
                   <!-- 方法二 -->
                   <span @click="stepHandleFun(-1)">-</span><span>{{stepNum}}</span><span @click="stepHandleFun(1)">+</span>
                 </p>
+                <div class="btn">
+                  <button>加入购物车</button>
+                  <button>立即兑换</button>
+                </div>
+                <div class="like">
+                  <img src="../assets/img/love.png" alt="">
+                  <span>喜欢{{productInfo.like}}</span>
+                  <div class="img-box">
+                    <div>
+                      <img src="../assets/img/wx.png" alt="">
+                      <img src="../assets/img/wx.5584e874.png" alt="">
+                    </div>
+                    <div>
+                      <img src="../assets/img/qq.png" alt="">
+                    </div>
+                    <div>
+                      <img src="../assets/img/wb.png" alt="">
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <aside>
@@ -71,6 +91,39 @@
               </dl>
             </aside>
           </main>
+          <!-- 商品详情图与常见问题 -->
+          <div class="tabs">
+            <ul class="tabs-title">
+              <li :class="tabsBool ? 'tabs-active' : ''" @click="tabsBool = true">商品详情</li>
+              <li :class="!tabsBool ? 'tabs-active' : ''" @click="tabsBool = false">联系我们</li>
+            </ul>
+            <ul class="tabs-content">
+              <li v-if="tabsBool" v-html="productInfo.description"></li>
+              <!-- string对象 -->
+              <li v-else>
+                <dl>
+                  <dt>兑换后运费如何收取？</dt>
+                  <dd>商城内大部分实物产品均可包邮，也支持上门自提。虚拟产品则无需运费，可在兑换后直接使用。</dd>
+                  <dd>（注：新疆，西藏，内蒙古，青海，海南，宁夏暂不支持包邮，在此地区兑换商品需提前与客服确认运费。）</dd>
+                </dl>
+                <dl>
+                  <dt>兑换后运费如何收取？</dt>
+                  <dd>商城内大部分实物产品均可包邮，也支持上门自提。虚拟产品则无需运费，可在兑换后直接使用。</dd>
+                  <dd>（注：新疆，西藏，内蒙古，青海，海南，宁夏暂不支持包邮，在此地区兑换商品需提前与客服确认运费。）</dd>
+                </dl>
+                <dl>
+                  <dt>兑换后运费如何收取？</dt>
+                  <dd>商城内大部分实物产品均可包邮，也支持上门自提。虚拟产品则无需运费，可在兑换后直接使用。</dd>
+                  <dd>（注：新疆，西藏，内蒙古，青海，海南，宁夏暂不支持包邮，在此地区兑换商品需提前与客服确认运费。）</dd>
+                </dl>
+                <dl>
+                  <dt>联系我们</dt>
+                  <dd><a href="http://www.wolfcode.cn">www.wolfcode.cn</a></dd>
+                  <dd>微信公众号搜索“叩丁狼”</dd>
+                </dl>
+              </li>
+            </ul>
+          </div>
         </div>
     </div>
 </template>
@@ -89,7 +142,8 @@ export default {
       productInfo: {}, // 商品详情
       themYouCanBuy: [], // 还可以兑换的商品
       currentImgIndex: 0, // 图片小图当前图片的下标
-      stepNum: 1 // 选择购买商品的数量
+      stepNum: 1, // 选择购买商品的数量
+      tabsBool: true
     }
   },
   // // 创建生命周期
@@ -143,7 +197,12 @@ export default {
     // this.nav = res.data.nav;
     // this.productInfo = res.data.productInfo;
     // this.themYouCanBuy = res.data.themYouCanBuy;
-    this.asideClickHandle(124)
+
+    // 页面回滚
+    document.documentElement.scrollTop = 0
+    // 接受商品id
+    const id = this.$route.query.id
+    this.asideClickHandle(id)
   },
   components: {
     Nav,
@@ -158,6 +217,8 @@ export default {
       this.themYouCanBuy = res.data.themYouCanBuy
       // 初始化商品展示图下标
       this.currentImgIndex = 0
+      // upload/    https://sc.wolfcode.cn/upload/
+      this.productInfo.description = this.productInfo.description.replaceAll('upload/', 'https://sc.wolfcode.cn/upload/')
     },
     bigImgUrlHandle (index) {
       // 怎么知道鼠标是移入的那种照片
@@ -308,6 +369,57 @@ export default {
               }
             }
           }
+          .btn {
+            display: flex;
+            margin-top: 24px;
+            button {
+              width: 150px;
+              height: 46px;
+              color: #fff;
+              border: none;
+              outline: none;
+              background: #3dc36b;
+              cursor: pointer;
+              &:last-child{
+                margin-left: 20px;
+                background: #fd604d;
+              }
+            }
+          }
+          .like {
+            display: flex;
+            margin-top: 25px;
+            align-items: center;
+            span{
+              font-size: 16px;
+              color: #666;
+              padding: 0 16px 0 12px;
+            }
+            .img-box{
+              border-left: 1px solid #ececec;
+              display: flex;
+              div{
+                position: relative;
+                img{
+                  width: 24px;
+                  height: 24px;
+                  margin-left: 20px;
+                  cursor: pointer;
+                  &:nth-child(2) {
+                    position: absolute;
+                    top: -110px;
+                    left: -110px;
+                    width: 100px;
+                    height: 100px;
+                    display: none;
+                  }
+                  &:nth-child(1):hover + :nth-child(2) {
+                    display: block;
+                  }
+                }
+              }
+            }
+          }
         }
       }
       aside{
@@ -380,6 +492,22 @@ export default {
               }
             }
           }
+        }
+      }
+    }
+    .tabs{
+      margin-top: 52px;
+      border-top: 1px solid #ececec;
+      .tabs-title {
+        display: flex;
+        li{
+          padding: 16px 24px;
+          color: #999;
+        }
+        .tabs-active{
+          background: #ececec;
+          color: #000;
+          font-weight: 700;
         }
       }
     }
