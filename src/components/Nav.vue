@@ -32,9 +32,9 @@
                 </div>
                 <div class="right">
                     <div class="search">
-                        <input type="text" placeholder="请输入搜索内容">
+                        <input type="text" placeholder="请输入搜索内容" v-model.trim = "val" @keypress.enter="searchHandle">
                     </div>
-                    <div class="btn">
+                    <div class="btn" @click="searchHandle">
                         <img src="../assets/img/search.png" alt="">
                     </div>
                 </div>
@@ -48,7 +48,21 @@
 </template>
 <script>
 export default {
-  props: ['isShow']
+  props: ['isShow'],
+  data () {
+    return {
+      val: ''
+    }
+  },
+  methods: {
+    searchHandle () {
+      // 数据请求
+      if (this.val.length === 0) {
+        alert('搜索内容不能为空！')
+      }
+      this.$router.push('/goods?name=全部礼品&keyword=' + this.val)
+    }
+  }
 
 }
 </script>
