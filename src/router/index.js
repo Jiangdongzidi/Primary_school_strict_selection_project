@@ -1,23 +1,23 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Detail from '../views/Detail.vue'
+import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    redirce: '/detail'
-  },
-  {
-    path: '/detail',
-    name: 'detail',
-    component: Detail
+    redirect: '/home'
   },
   {
     path: '/home',
+    name: 'home',
+    component: Home
+  },
+  {
+    path: '/detail/:id',
     // 使用懒加载（组件）
-    component: () => import('../views/Home.vue')
+    component: () => import('../views/Detail.vue')
   },
   {
     path: '/goods',
@@ -43,6 +43,8 @@ const routes = [
 ]
 
 const router = new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
   routes
 })
 

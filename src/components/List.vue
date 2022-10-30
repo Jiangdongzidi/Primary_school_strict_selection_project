@@ -10,12 +10,12 @@
                 </div>
                 <div class="r" @click="clickHandle(listData.name)">更多 <img src="../assets/img/arrow.png" alt=""></div>
             </div>
-            <div class="banner">
-                <slot name="banner"></slot>
-            </div>
             <div class="content">
-                <ListItem class="item" v-for="(item, index) in listData.data.records" :key="index" :item="item"></ListItem>
-                <!-- <ListItem class="item" v-for="(item, index) in 4" :key="index" :item="item"></ListItem> -->
+                <div class="banner">
+                    <slot name="banner"></slot>
+                </div>
+                    <ListItem class="item" v-for="(item, index) in listData.data.records" :key="index" :item="item"></ListItem>
+                    <!-- <ListItem class="item" v-for="(item, index) in 4" :key="index" :item="item"></ListItem> -->
             </div>
         </div>
     </div>

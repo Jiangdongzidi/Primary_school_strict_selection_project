@@ -10,8 +10,8 @@
       <List :list-data="recommend"></List>
       <!-- 热门 -->
       <List :list-data="hot">
-        <img slot="left-img" src="@/assets/img/hot.png" alt="">
-        <img slot="banner" src="@/assets/img/ad.4c6b6225.png" alt="">
+        <img slot="left-img" src="../assets/img/hot.png" alt="">
+        <img slot="banner" src="../assets/img/ad.4c6b6225.png" alt="">
       </List>
     </div>
     </div>

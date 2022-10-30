@@ -8,14 +8,22 @@
         </div>
         <dl class="classify">
           <dt>排序：</dt>
-          <dd v-for="item, index in option" :key="index">{{item.txt}}</dd>
+          <dd v-for="item, index in option1" :key="index"
+            :class="sortIndex == index ? 'active' : ''"
+            @click="clackSortHandle(index)"
+          >{{item.txt}}</dd>
         </dl>
         <dl class="classify">
-          <dt>分类：</dt>
-          <dd v-for="item,index in type" :key="index">{{item.val}}</dd>
+          <dt>类型：</dt>
+          <dd v-for="item,index in option2" :key="index"
+          :class="classifyItem == index ? 'active' : ''"
+          @click="clickClassifyHandle(index)"
+          >{{item.txt}}</dd>
         </dl>
-        <div class="list">
-          <ListItem class="list-item" v-for="item in goodsData" :key="item.id" :item="item"></ListItem>
+        <div class="main">
+          <ListItem class="item" v-for="item in goodsData" :key="item.id" :item="item"></ListItem>
+          <div>{{goodsData.length}}暂无商品</div>
+          <!-- <div v-if="goodsData.length == 0">暂无商品</div> -->
         </div>
       </div>
     </div>
@@ -50,7 +58,7 @@ export default {
         max: 10000,
         keyword: ''
       },
-      option: [
+      option1: [
         { min: 0, max: 0, txt: '全部' },
         { min: 0, max: 10000, txt: '我能兑换的' },
         { min: 0, max: 500, txt: '0-500个' },
@@ -60,11 +68,13 @@ export default {
         { min: 2500, max: 6500, txt: '2500-6500个' },
         { min: 6500, max: 10000, txt: '6500-10000个' }
       ],
-      type: [
-        { type: 0, val: '全部' },
-        { type: 1, val: '实物礼品' },
-        { type: 2, val: '虚拟礼品' }
+      option2: [
+        { type: 0, txt: '全部' },
+        { type: 1, txt: '实物礼品' },
+        { type: 2, txt: '虚拟礼品' }
       ],
+      sortIndex: 0,
+      classifyItem: 0,
       goodsData: []
     }
   },
@@ -86,6 +96,17 @@ export default {
       const res = await getGoodsFun(this.parmas)
       console.log('res---', res)
       this.goodsData = res.data
+    },
+    clackSortHandle (index) {
+      this.sortIndex = index
+      this.params.min = this.option1[index].min
+      this.params.max = this.option1[index].max
+      this.getRequest()
+    },
+    clickClassifyHandle (index) {
+      this.classifyItem = index
+      this.params.type = this.option2[index].type
+      this.getRequest()
     }
   }
 
@@ -118,10 +139,10 @@ export default {
         color: #00329B;
       }
     }
-    .list {
+    .main {
       display: flex;
       flex-wrap: wrap;
-      .list-item {
+      .item {
         margin-right: 20px;
         margin-bottom: 20px;
         &:nth-child(4n) {
