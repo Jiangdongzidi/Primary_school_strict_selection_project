@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="home">
         <!-- 2、使用属性实现 -->
     <Nav :is-show="true">
         <!-- 1、使用插槽 -->
@@ -9,7 +9,10 @@
       <!-- 精品 -->
       <List :list-data="recommend"></List>
       <!-- 热门 -->
-      <List :list-data="hot"></List>
+      <List :list-data="hot">
+        <img slot="left-img" src="@/assets/img/hot.png" alt="">
+        <img slot="banner" src="@/assets/img/ad.4c6b6225.png" alt="">
+      </List>
     </div>
     </div>
 </template>

@@ -34,7 +34,7 @@ export default {
     height: 412px;
     text-align: center;
     background-color: #fff;
-    padding-bottom: 32px;
+    padding-bottom: 78px;
     // 过渡样式
     transition: transform 0.5s;
     cursor: pointer;

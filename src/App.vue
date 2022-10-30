@@ -4,16 +4,25 @@
     <Header></Header>
     <router-view/>
     <Footer></Footer>
+    <!-- <Model v-show="isShowModel"></Model> -->
+    <Model v-show="$store.state.isShowModel"></Model>
   </div>
 </template>
 <script>
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
+import Model from './components/Model.vue'
 
 export default {
   components: {
     Header,
-    Footer
+    Footer,
+    Model
+  },
+  data () {
+    return {
+      // isShowModel: false
+    }
   }
 }
 </script>

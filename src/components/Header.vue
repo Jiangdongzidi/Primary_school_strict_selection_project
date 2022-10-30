@@ -9,7 +9,7 @@
                     <li>我的鸡腿：--</li>
                     <li>获取鸡腿</li>
                     <li><a href="https://www.wolfcode.cn/new/portal/index.html">叩丁狼官网</a></li>
-                    <li>登录</li>
+                    <li @click="loginHandle">登录</li>
                 </ul>
             </div>
         </div>
@@ -17,7 +17,13 @@
 </template>
 <script>
 export default {
-
+  methods: {
+    loginHandle () {
+    //   this.$store.state.isShowModel = true  // 不建议这样做
+    // 建议使用mutations实现
+      this.$store.commit('changeIsShowModel', true)
+    }
+  }
 }
 </script>
 <style lang="scss">
@@ -57,6 +63,7 @@ export default {
                         background-color: #0A328E;
                         // 文字垂直居中
                         text-align: center;
+                        cursor: pointer;
                     }
                     a{
                         color: #fff;

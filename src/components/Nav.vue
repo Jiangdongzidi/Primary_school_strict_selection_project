@@ -60,6 +60,9 @@ export default {
       if (this.val.length === 0) {
         alert('搜索内容不能为空！')
       }
+      //   if (this.$route.path === '/goods') {
+
+      //   }
       this.$router.push('/goods?name=全部礼品&keyword=' + this.val)
     }
   }
